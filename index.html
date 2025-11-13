@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language Translating Classroom Platform</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body { background:#f5f5f5; color:#111; }
+
+    /* NAVBAR */
+    .navbar {
+      width:100%; padding:10px 60px; display:flex; justify-content:space-between;
+      align-items:center; background:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.08);
+      position:fixed; top:0; z-index:50; transition:top 0.3s ease-in-out;
+    }
+    .navbar.hide { top:-200px; }
+    .logo { display:flex; align-items:center; height:150px; }
+    .logo img { height:150px; width:auto; display:block; }
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a {
+      margin-left:30px; text-decoration:none; color:#111; font-size:15px;
+      transition:0.25s;
+    }
+    .nav-links a:not(.nav-btn):hover { color:#000; }
+    .nav-btn { margin-left:25px; padding:10px 20px; background:transparent; color:#111; border:1px solid #111;
+      border-radius:8px; text-decoration:none; font-weight:600; transition:0.25s; }
+    .nav-btn:hover { background:#111; color:#fff; }
+
+    /* HERO */
+    .hero {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:200px 60px 120px;
+    }
+    .hero-text { max-width:520px; }
+    .hero-text h1 { font-size:48px; font-weight:700; margin-bottom:20px; }
+    .hero-text p { font-size:17px; color:#444; margin-bottom:30px; line-height:1.6; }
+    .hero-btn { padding:14px 28px; background:#111; color:#fff; border-radius:10px;
+      text-decoration:none; font-size:16px; font-weight:600; }
+
+    .hero-img img { width:480px; border-radius:18px; box-shadow:0 0 35px rgba(0,0,0,0.15); }
+
+    /* FEATURES */
+    .features { padding:90px 60px; background:#fff; }
+    .features h2 { text-align:center; font-size:34px; margin-bottom:45px; }
+    .feature-boxes { display:flex; justify-content:center; gap:35px; flex-wrap:wrap; }
+    .feature {
+      width:300px; background:#fafafa; padding:28px; border-radius:14px;
+      border:1px solid #ddd; box-shadow:0 0 18px rgba(0,0,0,0.08);
+      transition:0.25s;
+    }
+    .feature:hover { transform:translateY(-6px); }
+    .feature h3 { margin-bottom:12px; font-size:20px; }
+    .feature p { color:#555; font-size:15px; line-height:1.5; }
+
+    /* COURSE SECTION */
+    .courses { padding:80px 60px; text-align:center; }
+    .courses h2 { font-size:32px; margin-bottom:40px; }
+    .course-list { display:flex; gap:35px; justify-content:center; flex-wrap:wrap; }
+    .course-item { width:280px; padding:25px; background:#fff; border:1px solid #ddd;
+      border-radius:14px; box-shadow:0 0 20px rgba(0,0,0,0.1); }
+    .course-item h3 { margin-bottom:8px; font-size:18px; }
+    .course-item p { color:#666; font-size:14px; }
+
+    /* FOOTER */
+    .footer {
+      background:#fff; padding:50px 60px; margin-top:60px; display:flex;
+      justify-content:space-between; flex-wrap:wrap; gap:40px;
+      border-top:1px solid #ddd;
+    }
+    .footer-col h4 { font-size:18px; margin-bottom:15px; }
+    .footer-col a { display:block; text-decoration:none; color:#444; margin:6px 0; font-size:14px; }
+    .footer-col a:hover { color:#111; }
+    .copyright {
+      width:100%; text-align:center; color:#777; margin-top:20px; font-size:14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="assets/classroom logo.jpg" alt="classLang logo" id="header-logo" />
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#courses">My Courses</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="login.html" class="nav-btn">Login</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero" id="home">
+    <div class="hero-text">
+      <h1>Learn Smarter, Grow Faster</h1>
+      <p>Our platform breaks down language barriers, enabling students and teachers to understand each other in real-time. Learning becomes inclusive, accessible, and global.</p>
+      <a href="login.html" class="hero-btn">Start Learning</a>
+    </div>
+
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b" alt="classroom">
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features" id="features">
+    <h2>Why Choose Our Platform?</h2>
+
+    <div class="feature-boxes">
+      <div class="feature">
+        <h3>🌎 Real-Time Translation</h3>
+        <p>Instantly convert speech and text into multiple languages for smooth understanding.</p>
+      </div>
+
+      <div class="feature">
+        <h3>📝 Auto Note Generation</h3>
+        <p>Important points from translated lectures are converted into clean study notes.</p>
+      </div>
+
+      <div class="feature">
+        <h3>📚 Multilingual Courses</h3>
+        <p>Access courses in your preferred language with consistent translation quality.</p>
+      </div>
+
+      <div class="feature">
+        <h3>👨‍🏫 Teacher Tools</h3>
+        <p>Manage lessons, track student translation needs, and customize preferences.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSES -->
+  <div class="courses" id="courses">
+    <h2>Popular Courses</h2>
+    <div class="course-list">
+      <div class="course-item">
+        <h3>Basic English</h3>
+        <p>A perfect introduction course translated into 20+ languages.</p>
+      </div>
+      <div class="course-item">
+        <h3>Mathematics Foundation</h3>
+        <p>Concepts taught with clarity and multilingual explanations.</p>
+      </div>
+      <div class="course-item">
+        <h3>Science Essentials</h3>
+        <p>Engaging science lessons with instant translation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#courses">Courses</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#help">Help Center</a>
+      <a href="#faq">FAQs</a>
+      <a href="#policy">Privacy Policy</a>
+      <a href="#terms">Terms & Conditions</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>About Us</h4>
+      <a href="#about">Our Mission</a>
+      <a href="#team">Team</a>
+      <a href="#careers">Careers</a>
+    </div>
+
+    <div class="copyright">
+      © 2025 LangClass — Language Translating Classroom Platform. All Rights Reserved.
+    </div>
+  </div>
+
+  <script>
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (currentScroll > lastScrollTop) {
+        // Scrolling DOWN
+        navbar.classList.add('hide');
+      } else {
+        // Scrolling UP
+        navbar.classList.remove('hide');
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+  </script>
+
+</body>
+</html>
