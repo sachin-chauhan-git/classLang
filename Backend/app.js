@@ -1,3 +1,6 @@
+const cors = require('cors');
+
+
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/classLang', {
@@ -16,11 +19,17 @@ mongoose.connection.on('error', (err) => {
 // app.js
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.get('/', (req, res) => {
   res.send('Welcome to root URL of Server');
 });
+app.use(cors());
+app.use(express.json());
+
+const userRoutes = require('./routes/users');
+app.use('/users', userRoutes);
+
 
 app.listen(PORT, (error) => {
   if (!error)
@@ -28,7 +37,4 @@ app.listen(PORT, (error) => {
   else
     console.log('Error occurred, server can\'t start', error);
 });
-
-const userRoutes = require('./routes/users');
-app.use('/users', userRoutes);
 

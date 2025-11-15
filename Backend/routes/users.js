@@ -16,5 +16,8 @@ router.post('/register', async (req, res) => {
 module.exports = router;
 
 
+router.get('/test', (req, res) => {
+  res.send('User route is working');
+});
 
 
