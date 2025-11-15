@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Classroom Translation Platform</title>
+  <title>Sign Up - Classroom Translation Platform</title>
   <style>
     * {
       margin: 0;
@@ -37,7 +37,7 @@
       color: #111;
     }
 
-    /* PREMIUM ROLE SELECT */
+    /* ROLE SELECT */
     .role-select {
       display: flex;
       justify-content: space-between;
@@ -84,39 +84,6 @@
       color: #fff;
     }
 
-    /* LOGIN / SIGNUP BUTTONS */
-    .switch-row {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .switch-btn {
-      padding: 10px 24px;
-      background: transparent;
-      border: 2px solid #ddd;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      color: #222;
-      transform: scale(1);
-    }
-
-    .switch-btn:hover {
-      background: #161616;
-      border-color: #111;
-      color: #fff;
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .active {
-      background: #0c0c0c;
-      color: #fff;
-    }
-
     /* INPUT FIELDS */
     input {
       width: 100%;
@@ -144,7 +111,7 @@
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
-      margin-top: 10px;
+      margin-top: 15px;
       transition: all 0.3s ease;
       transform: scale(1);
     }
@@ -153,6 +120,24 @@
       background: #000;
       transform: scale(1.02);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* LOGIN LINK */
+    .login-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .login-link a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .login-link a:hover {
+      color: #555;
     }
 
     /* SOCIAL LOGIN */
@@ -204,7 +189,7 @@
       height: 28px;
     }
 
-    .divider{
+    .divider {
       border-color: black;
     }
 
@@ -213,7 +198,7 @@
 <body>
 
   <div class="container">
-    <h1> Login / SignUp </h1>
+    <h1>Create Account</h1>
 
     <div class="role-select">
       <div class="role-card" id="studentCard">
@@ -224,35 +209,35 @@
       </div>
     </div>
 
-    <div class="switch-row">
-      <a href="signup.html" style="text-decoration: none; width: 100%;">
-        <button class="switch-btn" style="width: 100%;">Sign Up</button>
-      </a>
-    </div>
-
     <div id="formArea">
-      <form id="loginForm">
-        <input type="email" placeholder="Email" id="loginEmail" required />
-        <input type="password" placeholder="Password" id="loginPassword" required />
-        <button class="main-btn" type="submit">Login</button>
-        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
-        <p id="loginLoading" style="color: #666; margin-top: 10px; display: none;">Loading...</p>
+      <form id="signupForm">
+        <input type="text" placeholder="First Name" id="firstName" required />
+        <input type="text" placeholder="Last Name" id="lastName" required />
+        <input type="email" placeholder="Email" id="email" required />
+        <input type="password" placeholder="Password" id="password" required />
+        <button class="main-btn" type="submit">Sign Up</button>
+        <p id="signupError" style="color: red; margin-top: 10px; display: none;"></p>
+        <p id="signupLoading" style="color: #666; margin-top: 10px; display: none;">Creating account...</p>
       </form>
 
-      <div class="divider">Or continue with</div>
+      <div class="login-link">
+        Already have an account? <a href="login.html">Login here</a>
+      </div>
 
-      <div class="social-login" border-color="black">
-        <a href="https://www.google.com" target="_blank" class="social-btn" title="Login with Google">
-        <img src="https://freelogopng.com/images/all_img/1657952641google-logo-png-image.png" alt="Google" />
+      <div class="divider">Or sign up with</div>
+
+      <div class="social-login">
+        <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=http://localhost:3000/auth/google/callback&response_type=code&scope=openid%20email%20profile&state=signup" target="_blank" class="social-btn" title="Sign up with Google">
+          <img src="https://freelogopng.com/images/all_img/1657952641google-logo-png-image.png" alt="Google" />
         </a>
-        <a href="https://www.linkedin.com" target="_blank" class="social-btn" title="Login with LinkedIn">
+        <a href="https://www.linkedin.com/oauth/v2/authorization?client_id=YOUR_LINKEDIN_CLIENT_ID&redirect_uri=http://localhost:3000/auth/linkedin/callback&response_type=code&scope=openid%20profile%20email&state=signup" target="_blank" class="social-btn" title="Sign up with LinkedIn">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/480px-LinkedIn_logo_initials.png" alt="LinkedIn" />
         </a>
-        <a href="https://twitter.com" target="_blank" class="social-btn" title="Login with Twitter">
-        <img src="https://clipartcraft.com/images/twitter-logo-transparent-background-2.png" alt="Twitter" />
+        <a href="https://twitter.com/i/oauth2/authorize?client_id=YOUR_TWITTER_CLIENT_ID&redirect_uri=http://localhost:3000/auth/twitter/callback&response_type=code&scope=tweet.read%20users.read&state=signup" target="_blank" class="social-btn" title="Sign up with Twitter">
+          <img src="https://clipartcraft.com/images/twitter-logo-transparent-background-2.png" alt="Twitter" />
         </a>
-        <a href="https://www.facebook.com" target="_blank" class="social-btn" title="Login with Facebook">
-        <img src="https://th.bing.com/th/id/OIP.d9GZxbX8Gi9_qGg7XP1ntgHaHa?o=7&cb=ucfimg2rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Facebook" />
+        <a href="https://www.facebook.com/v18.0/dialog/oauth?client_id=YOUR_FACEBOOK_CLIENT_ID&redirect_uri=http://localhost:3000/auth/facebook/callback&scope=email,public_profile&state=signup" target="_blank" class="social-btn" title="Sign up with Facebook">
+          <img src="https://th.bing.com/th/id/OIP.d9GZxbX8Gi9_qGg7XP1ntgHaHa?o=7&cb=ucfimg2rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Facebook" />
         </a>
       </div>
     </div>
@@ -262,7 +247,7 @@
     const API_BASE_URL = 'http://localhost:3001';
     let selectedRole = 'student'; // Default role
 
-    // Role selection
+    // Role selection functionality
     const studentCard = document.getElementById('studentCard');
     const teacherCard = document.getElementById('teacherCard');
 
@@ -281,36 +266,54 @@
     // Set default role
     studentCard.classList.add('role-active');
 
-    // Login form submission
-    const loginForm = document.getElementById('loginForm');
-    const loginEmail = document.getElementById('loginEmail');
-    const loginPassword = document.getElementById('loginPassword');
-    const loginError = document.getElementById('loginError');
-    const loginLoading = document.getElementById('loginLoading');
+    // Form submission
+    const signupForm = document.getElementById('signupForm');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const signupError = document.getElementById('signupError');
+    const signupLoading = document.getElementById('signupLoading');
 
-    loginForm.addEventListener('submit', async (e) => {
+    signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const email = loginEmail.value.trim();
-      const password = loginPassword.value.trim();
+      const firstName = firstNameInput.value.trim();
+      const lastName = lastNameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
 
       // Validation
-      if (!email || !password) {
-        loginError.textContent = 'Please fill in all fields';
-        loginError.style.display = 'block';
+      if (!firstName || !lastName || !email || !password) {
+        signupError.textContent = 'Please fill in all fields';
+        signupError.style.display = 'block';
         return;
       }
 
-      loginError.style.display = 'none';
-      loginLoading.style.display = 'block';
+      if (!email.includes('@')) {
+        signupError.textContent = 'Please enter a valid email';
+        signupError.style.display = 'block';
+        return;
+      }
+
+      if (password.length < 6) {
+        signupError.textContent = 'Password must be at least 6 characters';
+        signupError.style.display = 'block';
+        return;
+      }
+
+      signupError.style.display = 'none';
+      signupLoading.style.display = 'block';
 
       try {
-        const response = await fetch(`${API_BASE_URL}/users/login`, {
+        const response = await fetch(`${API_BASE_URL}/users/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
+            firstName,
+            lastName,
             email,
             password,
             role: selectedRole
@@ -324,19 +327,19 @@
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
           
-          loginLoading.textContent = 'Login successful! Redirecting...';
+          signupLoading.textContent = 'Account created! Redirecting...';
           setTimeout(() => {
             window.location.href = 'Dashboard.html';
           }, 1500);
         } else {
-          loginError.textContent = data.message || 'Login failed';
-          loginError.style.display = 'block';
-          loginLoading.style.display = 'none';
+          signupError.textContent = data.message || 'Signup failed';
+          signupError.style.display = 'block';
+          signupLoading.style.display = 'none';
         }
       } catch (error) {
-        loginError.textContent = 'Error: ' + error.message;
-        loginError.style.display = 'block';
-        loginLoading.style.display = 'none';
+        signupError.textContent = 'Error: ' + error.message;
+        signupError.style.display = 'block';
+        signupLoading.style.display = 'none';
       }
     });
   </script>
