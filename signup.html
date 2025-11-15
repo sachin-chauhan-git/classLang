@@ -210,12 +210,15 @@
     </div>
 
     <div id="formArea">
-     <form id="signupForm">
-  <input type="text" placeholder="Username" id="username" required />
-  <input type="email" placeholder="Email ID" id="email" required />
-  <input type="password" placeholder="Password" id="password" required />
-  <button class="main-btn" type="submit">Sign Up</button>
-</form>
+      <form id="signupForm">
+        <input type="text" placeholder="First Name" id="firstName" required />
+        <input type="text" placeholder="Last Name" id="lastName" required />
+        <input type="email" placeholder="Email" id="email" required />
+        <input type="password" placeholder="Password" id="password" required />
+        <button class="main-btn" type="submit">Sign Up</button>
+        <p id="signupError" style="color: red; margin-top: 10px; display: none;"></p>
+        <p id="signupLoading" style="color: #666; margin-top: 10px; display: none;">Creating account...</p>
+      </form>
 
       <div class="login-link">
         Already have an account? <a href="login.html">Login here</a>
@@ -241,6 +244,9 @@
   </div>
 
   <script>
+    const API_BASE_URL = 'http://localhost:3001';
+    let selectedRole = 'student'; // Default role
+
     // Role selection functionality
     const studentCard = document.getElementById('studentCard');
     const teacherCard = document.getElementById('teacherCard');
@@ -248,56 +254,94 @@
     studentCard.addEventListener('click', () => {
       studentCard.classList.add('role-active');
       teacherCard.classList.remove('role-active');
+      selectedRole = 'student';
     });
 
     teacherCard.addEventListener('click', () => {
       teacherCard.classList.add('role-active');
       studentCard.classList.remove('role-active');
+      selectedRole = 'teacher';
     });
 
-    // Form submission using a single form submit handler
+    // Set default role
+    studentCard.classList.add('role-active');
+
+    // Form submission
     const signupForm = document.getElementById('signupForm');
-    const usernameInput = document.getElementById('username');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
+    const signupError = document.getElementById('signupError');
+    const signupLoading = document.getElementById('signupLoading');
 
-    signupForm.addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const username = usernameInput.value.trim();
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const firstName = firstNameInput.value.trim();
+      const lastName = lastNameInput.value.trim();
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
 
-      // Optional: derive selected role
-      const selectedRole = studentCard.classList.contains('role-active') ? 'Student' : 'Teacher';
+      // Validation
+      if (!firstName || !lastName || !email || !password) {
+        signupError.textContent = 'Please fill in all fields';
+        signupError.style.display = 'block';
+        return;
+      }
 
-      if (!username || !email || !password) {
-        alert('Please fill in all fields');
-        return;
-      }
       if (!email.includes('@')) {
-        alert('Please enter a valid email');
+        signupError.textContent = 'Please enter a valid email';
+        signupError.style.display = 'block';
         return;
       }
+
       if (password.length < 6) {
-        alert('Password must be at least 6 characters');
+        signupError.textContent = 'Password must be at least 6 characters';
+        signupError.style.display = 'block';
         return;
       }
+
+      signupError.style.display = 'none';
+      signupLoading.style.display = 'block';
 
       try {
-        const response = await fetch('http://localhost:3001/users/register', {
+        const response = await fetch(`${API_BASE_URL}/users/register`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, email, password, role: selectedRole })
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+            role: selectedRole
+          })
         });
+
         const data = await response.json();
-        alert(data.message || 'Signup successful!');
+
+        if (data.success) {
+          // Store token and user data
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          
+          signupLoading.textContent = 'Account created! Redirecting...';
+          setTimeout(() => {
+            window.location.href = 'Dashboard.html';
+          }, 1500);
+        } else {
+          signupError.textContent = data.message || 'Signup failed';
+          signupError.style.display = 'block';
+          signupLoading.style.display = 'none';
+        }
       } catch (error) {
-        alert('Signup failed: ' + error.message);
-        console.error(error);
+        signupError.textContent = 'Error: ' + error.message;
+        signupError.style.display = 'block';
+        signupLoading.style.display = 'none';
       }
     });
-
-
   </script>
 
 </body>

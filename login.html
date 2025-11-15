@@ -231,9 +231,13 @@
     </div>
 
     <div id="formArea">
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
-      <button class="main-btn">Login</button>
+      <form id="loginForm">
+        <input type="email" placeholder="Email" id="loginEmail" required />
+        <input type="password" placeholder="Password" id="loginPassword" required />
+        <button class="main-btn" type="submit">Login</button>
+        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
+        <p id="loginLoading" style="color: #666; margin-top: 10px; display: none;">Loading...</p>
+      </form>
 
       <div class="divider">Or continue with</div>
 
@@ -253,6 +257,89 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const API_BASE_URL = 'http://localhost:3001';
+    let selectedRole = 'student'; // Default role
+
+    // Role selection
+    const studentCard = document.getElementById('studentCard');
+    const teacherCard = document.getElementById('teacherCard');
+
+    studentCard.addEventListener('click', () => {
+      studentCard.classList.add('role-active');
+      teacherCard.classList.remove('role-active');
+      selectedRole = 'student';
+    });
+
+    teacherCard.addEventListener('click', () => {
+      teacherCard.classList.add('role-active');
+      studentCard.classList.remove('role-active');
+      selectedRole = 'teacher';
+    });
+
+    // Set default role
+    studentCard.classList.add('role-active');
+
+    // Login form submission
+    const loginForm = document.getElementById('loginForm');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const loginError = document.getElementById('loginError');
+    const loginLoading = document.getElementById('loginLoading');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value.trim();
+
+      // Validation
+      if (!email || !password) {
+        loginError.textContent = 'Please fill in all fields';
+        loginError.style.display = 'block';
+        return;
+      }
+
+      loginError.style.display = 'none';
+      loginLoading.style.display = 'block';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/users/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            role: selectedRole
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Store token and user data
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          
+          loginLoading.textContent = 'Login successful! Redirecting...';
+          setTimeout(() => {
+            window.location.href = 'Dashboard.html';
+          }, 1500);
+        } else {
+          loginError.textContent = data.message || 'Login failed';
+          loginError.style.display = 'block';
+          loginLoading.style.display = 'none';
+        }
+      } catch (error) {
+        loginError.textContent = 'Error: ' + error.message;
+        loginError.style.display = 'block';
+        loginLoading.style.display = 'none';
+      }
+    });
+  </script>
 
 </body>
 </html>
