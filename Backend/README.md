@@ -16,6 +16,7 @@ cp .env.example .env
 Edit `.env` with your configuration:
 - `PORT`: Server port (default: 5000)
 - `MONGODB_URI`: MongoDB connection string (default: mongodb://localhost:27017/classlang)
+ - `MONGODB_URI`: MongoDB connection string (default: mongodb://localhost:27017/classLang)
 - `JWT_SECRET`: Secret key for JWT tokens
 - `NODE_ENV`: Environment (development/production)
 
