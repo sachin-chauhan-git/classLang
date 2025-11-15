@@ -210,10 +210,12 @@
     </div>
 
     <div id="formArea">
-      <input type="text" placeholder="Username" id="username" />
-      <input type="email" placeholder="Email ID" id="email" />
-      <input type="password" placeholder="Password" id="password" />
-      <button class="main-btn" id="signupSubmitBtn">Sign Up</button>
+     <form id="signupForm">
+  <input type="text" placeholder="Username" id="username" required />
+  <input type="email" placeholder="Email ID" id="email" required />
+  <input type="password" placeholder="Password" id="password" required />
+  <button class="main-btn" type="submit">Sign Up</button>
+</form>
 
       <div class="login-link">
         Already have an account? <a href="login.html">Login here</a>
@@ -253,43 +255,49 @@
       studentCard.classList.remove('role-active');
     });
 
-    // Form submission
-    const signupSubmitBtn = document.getElementById('signupSubmitBtn');
+    // Form submission using a single form submit handler
+    const signupForm = document.getElementById('signupForm');
     const usernameInput = document.getElementById('username');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
 
-    signupSubmitBtn.addEventListener('click', () => {
+    signupForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
       const username = usernameInput.value.trim();
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
+
+      // Optional: derive selected role
       const selectedRole = studentCard.classList.contains('role-active') ? 'Student' : 'Teacher';
 
       if (!username || !email || !password) {
         alert('Please fill in all fields');
         return;
       }
-
       if (!email.includes('@')) {
         alert('Please enter a valid email');
         return;
       }
-
       if (password.length < 6) {
         alert('Password must be at least 6 characters');
         return;
       }
 
-      console.log('Sign Up Data:', {
-        username,
-        email,
-        password,
-        role: selectedRole
-      });
-
-      alert(`Welcome, ${username}! Account created as ${selectedRole}.`);
-      // Here you would normally send this data to your backend
+      try {
+        const response = await fetch('http://localhost:3001/users/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password, role: selectedRole })
+        });
+        const data = await response.json();
+        alert(data.message || 'Signup successful!');
+      } catch (error) {
+        alert('Signup failed: ' + error.message);
+        console.error(error);
+      }
     });
+
+
   </script>
 
 </body>
